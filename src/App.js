@@ -3,7 +3,7 @@ import React from "react";
 import Firebase from "firebase";
 import config from "./config";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faTrashAlt, faPlusCircle, faMinusCircle, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt, faTrashAlt, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 
 class App extends React.Component {
   constructor(props) {

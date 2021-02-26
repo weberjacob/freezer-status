@@ -2,10 +2,11 @@
 $theme-colors: (
   'theme-black': #252525,
   'theme-white': #fff,
-  'theme-gray': #31373d,
+  'theme-gray': #202124,
   'theme-success': #86c13d,
   'theme-warning': #f1ba2e,
   'theme-alert': #e54040,
 );
 
 $colors: $theme-colors;
+$body-font: 'Roboto', sans-serif;
