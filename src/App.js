@@ -2,6 +2,8 @@ import React from "react";
 
 import Firebase from "firebase";
 import config from "./config";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencilAlt, faTrashAlt, faPlusCircle, faMinusCircle, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 class App extends React.Component {
   constructor(props) {
@@ -108,58 +110,57 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <h1>What's in the freezer?</h1>
-            </div>
+          <div className="title-wrapper">
+            <h1>What's in the freezer?</h1>
           </div>
-          <div className="row">
-            <div className="col-xl-12">
+          <div className="items-wrapper">
+            <div className="item-inner">
               { freezerItems.map(item => (
                 <div
                   key={ item.uid }
-                  className="card float-left"
-                  style={{ width: "18rem", marginRight: "1rem" }}
                 >
-                  <div className="card-body">
-                    <h5 className="card-title">{ item.name }</h5>
-                    <p className="card-text"> { item.count }</p>
-                    <button
-                      onClick={() => this.removeData(item)}
-                      className="btn btn-link"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => this.updateData(item)}
-                      className="btn btn-link"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => this.incrementCount(item)}
-                      className="btn btn-link"
-                    >
-                      +1
-                    </button>
-                    <button
-                      onClick={() => this.decrementCount(item)}
-                      className="btn btn-link"
-                    >
-                      -1
-                    </button>
+                  <div className="item">
+                    <h5 className="title">{ item.name }</h5>
+                    <div className="count-actions">
+                      <button
+                        onClick={() => this.incrementCount(item)}
+                      >
+                        <FontAwesomeIcon icon={faPlusCircle} />
+                      </button>
+                      <p className="amount">{item.count}</p>
+                      <button
+                        onClick={() => this.decrementCount(item)}
+                        className="btn btn-link"
+                      >
+                        <FontAwesomeIcon icon={faMinusCircle} />
+                      </button>
+                    </div>
+                    <div className="actions">
+                      <button
+                        onClick={() => this.removeData(item)}
+                        className="btn btn-link"
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </button>
+                      <button
+                        onClick={() => this.updateData(item)}
+                        className="btn btn-link"
+                      >
+                        <FontAwesomeIcon icon={faPencilAlt} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="row">
-            <div className="col-xl-12">
-              <h1>Add new freezer item</h1>
+          <div className="add-more">
+            <div>
+              <h2>Add new freezer item</h2>
               <form onSubmit={ this.handleSubmit }>
-                <div className="form-row">
+                <div>
                   <input type="hidden" ref="uid" />
-                  <div className="form-group col-md-6">
+                  <div>
                     <label>Name</label>
                     <input
                       type="text"
@@ -168,7 +169,7 @@ class App extends React.Component {
                       placeholder="Name"
                     />
                   </div>
-                  <div className="form-group col-md-6">
+                  <div>
                     <label>Count</label>
                     <input
                       type="number"

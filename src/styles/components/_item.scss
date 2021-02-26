@@ -1,0 +1,37 @@
+
+.item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid color(theme-white);
+
+  .title,
+  p {
+    margin: 0;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .count-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  button {
+    background-color: transparent;
+    border: 0;
+    color: color(theme-white);
+  }
+
+  .actions {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+}
