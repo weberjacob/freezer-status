@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.5rem 1rem;
 
   .title,
   p {
@@ -29,10 +29,24 @@
     background-color: transparent;
     border: 0;
     color: color(theme-white);
+    transition: color 400ms;
+
+    &:hover,
+    &:focus {
+      color: color(theme-blue);
+    }
+
+    &.delete {
+
+      &:hover {
+        color: color(theme-alert);
+      }
+    }
   }
 
   .actions {
     margin-top: 0.5rem;
+    margin-left: -0.25rem;
     width: 100%;
   }
 }

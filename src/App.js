@@ -123,22 +123,22 @@ class App extends React.Component {
                     <h5 className="title">{ item.name }</h5>
                     <div className="count-actions">
                       <button
-                        onClick={() => this.incrementCount(item)}
+                        onClick={() => this.decrementCount(item)}
                       >
-                        <FontAwesomeIcon icon={faPlusCircle} />
+                        <FontAwesomeIcon icon={faMinusCircle} />
                       </button>
                       <p className="amount">{item.count}</p>
                       <button
-                        onClick={() => this.decrementCount(item)}
+                        onClick={() => this.incrementCount(item)}
                         className="btn btn-link"
                       >
-                        <FontAwesomeIcon icon={faMinusCircle} />
+                        <FontAwesomeIcon icon={faPlusCircle} />
                       </button>
                     </div>
                     <div className="actions">
                       <button
                         onClick={() => this.removeData(item)}
-                        className="btn btn-link"
+                        className="btn btn-link delete"
                       >
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </button>
