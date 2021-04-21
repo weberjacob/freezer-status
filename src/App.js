@@ -11,7 +11,8 @@ class App extends React.Component {
     Firebase.initializeApp(config);
 
     this.state = {
-      freezerItems: []
+      freezerItems: [],
+      updatedDate: ''
     };
   }
 
@@ -51,6 +52,7 @@ class App extends React.Component {
     let name = this.refs.name.value;
     let count = this.refs.count.value;
     let uid = this.refs.uid.value;
+    let date = new Date().toLocaleDateString();
 
     if (uid && name && count) {
       const { freezerItems } = this.state;
@@ -60,11 +62,13 @@ class App extends React.Component {
       freezerItems[freezerItemIndex].name = name;
       freezerItems[freezerItemIndex].count = count;
       this.setState({ freezerItems });
+      this.setState({ updatedDate: date });
     } else if (name && count) {
       const uid = new Date().getTime().toString();
       const { freezerItems } = this.state;
       freezerItems.push({ uid, name, count });
       this.setState({ freezerItems });
+      this.setState({ updatedDate: date });
     }
 
     // this.refs.name.value = "";
@@ -74,11 +78,12 @@ class App extends React.Component {
   };
 
   removeData = item => {
-    const { freezerItems } = this.state;
+    const { freezerItems, updatedDate } = this.state;
+    const date = new Date().toLocaleDateString();
     const newState = freezerItems.filter(data => {
       return data.uid !== item.uid;
     });
-    this.setState({ freezerItems: newState });
+    this.setState({ freezerItems: newState, updatedDate: date });
   };
 
   updateData = item => {
@@ -89,29 +94,33 @@ class App extends React.Component {
 
   incrementCount = item => {
     const { freezerItems } = this.state;
+    const date = new Date().toLocaleDateString();
     this.refs.uid.value = item.uid;
     this.refs.name.value = item.name;
     this.refs.count.value = ++item.count;
-    this.setState({ freezerItems });
+    this.setState({ freezerItems, updatedDate: date });
     this.clearInputs();
   };
 
   decrementCount = item => {
     const { freezerItems } = this.state;
+    const date = new Date().toLocaleDateString();
     this.refs.uid.value = item.uid;
     this.refs.name.value = item.name;
     this.refs.count.value = --item.count;
-    this.setState({ freezerItems });
+    this.setState({ freezerItems, updatedDate: date });
     this.clearInputs();
   };
 
   render() {
     const { freezerItems } = this.state;
+    const { updatedDate } = this.state;
     return (
       <React.Fragment>
         <div className="container">
           <div className="title-wrapper">
             <h1>What's in the freezer?</h1>
+            <p>Last updated: { updatedDate } </p>
           </div>
           <div className="items-wrapper">
             <div className="item-inner">
