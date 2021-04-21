@@ -1,0 +1,70 @@
+
+.add-more {
+  margin-top: $global-margin * 2;
+
+  h3 {
+    cursor: pointer;
+    border: 1px solid color(theme-white);
+    border-radius: 7px;
+    padding: $global-padding;
+    transition: color $global-speed, background-color $global-speed, border $global-speed;
+
+    &:hover,
+    &:focus,
+    &.active {
+      background-color: color(theme-blue);
+      border-color: color(theme-blue);
+      color: color(theme-black);
+    }
+  }
+
+  .form-inactive {
+
+    .form {
+      height: 0;
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  .form {
+    transition: visibility $global-speed, opacity $global-speed;
+
+    > div {
+      display: flex;
+
+      div {
+        display: flex;
+        flex-direction: column;
+
+        &:first-of-type {
+          width: 70%;
+        }
+
+        &:last-of-type {
+          width: 25%;
+          margin-left: auto;
+        }
+
+        label {
+          margin-bottom: $global-margin / 4;
+        }
+      }
+    }
+  }
+
+  .btn {
+    background-color: color(theme-blue);
+    border: 0;
+    border-radius: 7px;
+    padding: ($global-padding / 2) $global-padding;
+    margin-top: $global-margin;
+    transition: color $global-speed, background-color $global-speed;
+
+    &:hover,
+    &:focus {
+      background-color: color(theme-blue-dark);
+      color: color(theme-white);
+    }
+  }
+}

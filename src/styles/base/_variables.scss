@@ -7,8 +7,11 @@ $theme-colors: (
   'theme-warning': #f1ba2e,
   'theme-alert': #e54040,
   'theme-blue': #00dbff,
+  'theme-blue-dark': #1f8392,
 );
 
 $global-margin: 1rem;
+$global-padding: 1rem;
+$global-speed: 400ms;
 $colors: $theme-colors;
 $body-font: 'Roboto', sans-serif;

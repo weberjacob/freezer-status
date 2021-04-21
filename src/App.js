@@ -12,7 +12,8 @@ class App extends React.Component {
 
     this.state = {
       freezerItems: [],
-      updatedDate: ''
+      updatedDate: '',
+      formActive: false
     };
   }
 
@@ -112,9 +113,16 @@ class App extends React.Component {
     this.clearInputs();
   };
 
+  addMoreShow = event => {
+    // event.preventDefault();
+    // this.setState({ formActive: true });
+    this.setState(prevState => ({ formActive: !prevState.formActive }));
+  }
+
   render() {
     const { freezerItems } = this.state;
     const { updatedDate } = this.state;
+    const { formActive } = this.state;
     return (
       <React.Fragment>
         <div className="container">
@@ -164,9 +172,9 @@ class App extends React.Component {
             </div>
           </div>
           <div className="add-more">
-            <div>
-              <h2>Add new freezer item</h2>
-              <form onSubmit={ this.handleSubmit }>
+            <div className={` ${formActive ? 'form-active' : 'form-inactive'}`}>
+              <h3 onClick={ this.addMoreShow }>Add new freezer item</h3>
+              <form onSubmit={ this.handleSubmit } className='form'>
                 <div>
                   <input type="hidden" ref="uid" />
                   <div>
