@@ -78,7 +78,7 @@ class App extends React.Component {
   };
 
   removeData = item => {
-    const { freezerItems, updatedDate } = this.state;
+    const { freezerItems } = this.state;
     const date = new Date().toLocaleDateString();
     const newState = freezerItems.filter(data => {
       return data.uid !== item.uid;
