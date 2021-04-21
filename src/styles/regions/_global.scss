@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-  margin: 0 auto;
+  margin: ($global-margin * 4) auto;
   max-width: 500px;
   width: 90vw;
 }
