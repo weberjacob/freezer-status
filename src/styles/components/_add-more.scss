@@ -33,17 +33,31 @@
     > div {
       display: flex;
 
+      @media only screen and (max-width: 600px) {
+        flex-direction: column;
+      }
+
       div {
         display: flex;
         flex-direction: column;
 
         &:first-of-type {
           width: 70%;
+
+          @media only screen and (max-width: 600px) {
+            width: 100%;
+            margin-bottom: 1rem;
+          }
         }
 
         &:last-of-type {
           width: 25%;
           margin-left: auto;
+
+          @media only screen and (max-width: 600px) {
+            width: 100%;
+            margin-left: 0;
+          }
         }
 
         label {

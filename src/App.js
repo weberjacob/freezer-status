@@ -121,6 +121,10 @@ class App extends React.Component {
 
   render() {
     const { freezerItems } = this.state;
+    // Sort alpha by name - not the best way to do this right now I know.
+    freezerItems.sort((a, b) => {
+      return a.name > b.name;
+    });
     const { updatedDate } = this.state;
     const { formActive } = this.state;
     return (
