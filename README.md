@@ -1,68 +1,124 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Freezer Status - Modern Inventory Tracker
 
-## Available Scripts
+A modern, real-time freezer inventory tracking app built with Next.js 14, TypeScript, Tailwind CSS, and Supabase.
 
-In the project directory, you can run:
+## Features
 
-### `yarn start`
+✨ **Real-time sync** across all devices  
+🎨 **Modern UI** with Tailwind CSS and smooth animations  
+📱 **Fully responsive** design  
+🔍 **Search functionality** to find items quickly  
+➕ **Add, edit, delete** items with ease  
+⬆️⬇️ **Increment/decrement** counts with one tap  
+🌙 **Dark mode** by default  
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Setup Instructions
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### 1. Install Dependencies
 
-### `yarn test`
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Set Up Supabase
 
-### `yarn build`
+1. Go to [supabase.com](https://supabase.com) and create a new project
+2. Once your project is ready, go to **Settings** → **API**
+3. Copy your **Project URL** and **anon/public key**
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. Create the Database Table
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+In your Supabase project:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Go to **SQL Editor**
+2. Run this SQL command to create the table:
 
-### `yarn eject`
+```sql
+-- Create the freezer_items table
+create table freezer_items (
+  id uuid default gen_random_uuid() primary key,
+  name text not null,
+  count integer not null default 0,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-- Enable Row Level Security
+alter table freezer_items enable row level security;
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-- Create a policy that allows all operations (since there's no auth yet)
+create policy "Allow all operations"
+  on freezer_items
+  for all
+  using (true)
+  with check (true);
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+-- Enable real-time
+alter publication supabase_realtime add table freezer_items;
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 4. Configure Environment Variables
 
-## Learn More
+1. Copy the example environment file:
+```bash
+cp .env.local.example .env.local
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Edit `.env.local` and add your Supabase credentials:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 5. Run the Development Server
 
-### Code Splitting
+```bash
+npm run dev
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Analyzing the Bundle Size
+## Usage
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- **Add items**: Fill in the name and count, then click "Add Item"
+- **Edit items**: Click the pencil icon on any item to edit it
+- **Delete items**: Click the trash icon to remove an item
+- **Adjust counts**: Use the + and - buttons to quickly adjust quantities
+- **Search**: Type in the search bar to filter items
 
-### Making a Progressive Web App
+## Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### Deploy to Vercel
 
-### Advanced Configuration
+The easiest way to deploy:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+```bash
+npm install -g vercel
+vercel
+```
 
-### Deployment
+Or connect your GitHub repository to Vercel for automatic deployments.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+Don't forget to add your environment variables in the Vercel project settings!
 
-### `yarn build` fails to minify
+## Tech Stack
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Supabase (PostgreSQL)
+- **Real-time**: Supabase Realtime
+- **Hosting**: Vercel (recommended)
+
+## Adding Authentication (Optional)
+
+To add user authentication later:
+
+1. Enable Email auth in Supabase: **Authentication** → **Providers** → Enable Email
+2. Update the RLS policies to use `auth.uid()`
+3. Add login/signup pages
+4. Modify queries to filter by user ID
+
+## Old React App
+
+The previous version of this app has been moved to the `old-app` directory.
