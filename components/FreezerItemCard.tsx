@@ -60,7 +60,7 @@ export function FreezerItemCard({
         <div className="flex items-center gap-2">
           <button
             onClick={onEdit}
-            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition opacity-0 group-hover:opacity-100"
+            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition sm:opacity-0 sm:group-hover:opacity-100"
             aria-label="Edit item"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,8 +69,12 @@ export function FreezerItemCard({
           </button>
 
           <button
-            onClick={onDelete}
-            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-red-600/80 hover:bg-red-600 text-white transition opacity-0 group-hover:opacity-100"
+            onClick={() => {
+              if (confirm(`Delete "${item.name}" from the freezer list?`)) {
+                onDelete()
+              }
+            }}
+            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-red-600/80 hover:bg-red-600 text-white transition sm:opacity-0 sm:group-hover:opacity-100"
             aria-label="Delete item"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

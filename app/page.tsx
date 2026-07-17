@@ -10,6 +10,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [editingItem, setEditingItem] = useState<FreezerItem | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   useEffect(() => {
     fetchItems()
@@ -51,6 +52,7 @@ export default function Home() {
 
     if (error) {
       console.error('Error fetching items:', error)
+      setErrorMessage('Failed to load items. Please refresh and try again.')
     } else {
       setItems(data || [])
     }
@@ -67,6 +69,8 @@ export default function Home() {
 
       if (error) {
         console.error('Error updating item:', error)
+        setErrorMessage('Failed to update item. Please try again.')
+        return
       }
       setEditingItem(null)
     } else {
@@ -77,6 +81,7 @@ export default function Home() {
 
       if (error) {
         console.error('Error adding item:', error)
+        setErrorMessage('Failed to add item. Please try again.')
       }
     }
   }
@@ -89,6 +94,7 @@ export default function Home() {
 
     if (error) {
       console.error('Error deleting item:', error)
+      setErrorMessage('Failed to delete item. Please try again.')
     }
   }
 
@@ -100,6 +106,7 @@ export default function Home() {
 
     if (error) {
       console.error('Error incrementing count:', error)
+      setErrorMessage('Failed to update count. Please try again.')
     }
   }
 
@@ -112,6 +119,7 @@ export default function Home() {
 
       if (error) {
         console.error('Error decrementing count:', error)
+        setErrorMessage('Failed to update count. Please try again.')
       }
     }
   }
@@ -128,10 +136,21 @@ export default function Home() {
           <h1 className="text-4xl sm:text-5xl font-bold text-white mb-2">
             Freezer List
           </h1>
-          <p className="text-gray-400 text-sm">
-            Last updated: {new Date().toLocaleDateString()}
-          </p>
         </div>
+
+        {/* Error Banner */}
+        {errorMessage && (
+          <div className="mb-6 flex items-start justify-between gap-4 bg-red-900/40 border border-red-700 text-red-200 rounded-lg px-4 py-3">
+            <p className="text-sm">{errorMessage}</p>
+            <button
+              onClick={() => setErrorMessage(null)}
+              className="text-red-300 hover:text-white transition shrink-0"
+              aria-label="Dismiss error"
+            >
+              ✕
+            </button>
+          </div>
+        )}
 
         {/* Search Bar */}
         <div className="mb-6">

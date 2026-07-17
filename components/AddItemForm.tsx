@@ -23,7 +23,7 @@ export function AddItemForm({ onSubmit, editingItem, onCancelEdit }: AddItemForm
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    
+
     if (!name.trim() || !count) return
 
     const countNum = parseInt(count)
@@ -47,7 +47,7 @@ export function AddItemForm({ onSubmit, editingItem, onCancelEdit }: AddItemForm
       <h2 className="text-xl font-semibold text-white mb-4">
         {editingItem ? 'Edit Item' : 'Add New Freezer Item'}
       </h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -64,7 +64,7 @@ export function AddItemForm({ onSubmit, editingItem, onCancelEdit }: AddItemForm
               required
             />
           </div>
-          
+
           <div>
             <label htmlFor="count" className="block text-sm font-medium text-gray-300 mb-2">
               Count
@@ -90,7 +90,7 @@ export function AddItemForm({ onSubmit, editingItem, onCancelEdit }: AddItemForm
           >
             {isSubmitting ? 'Saving...' : editingItem ? 'Update Item' : 'Add Item'}
           </button>
-          
+
           {editingItem && (
             <button
               type="button"
