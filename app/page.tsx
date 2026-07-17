@@ -11,6 +11,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('')
   const [editingItem, setEditingItem] = useState<FreezerItem | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [sortBy, setSortBy] = useState<'name' | 'count' | 'count-desc' | 'updated'>('count-desc')
 
   useEffect(() => {
     fetchItems()
@@ -124,9 +125,14 @@ export default function Home() {
     }
   }
 
-  const filteredItems = items.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const filteredItems = items
+    .filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .sort((a, b) => {
+      if (sortBy === 'count') return a.count - b.count
+      if (sortBy === 'count-desc') return b.count - a.count
+      if (sortBy === 'updated') return b.updated_at.localeCompare(a.updated_at)
+      return a.name.localeCompare(b.name)
+    })
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -152,23 +158,34 @@ export default function Home() {
           </div>
         )}
 
-        {/* Search Bar */}
-        <div className="mb-6">
-          <input
-            type="text"
-            placeholder="Search items..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-          />
-        </div>
-
         {/* Add/Edit Form */}
         <AddItemForm
           onSubmit={handleAddOrUpdate}
           editingItem={editingItem}
           onCancelEdit={() => setEditingItem(null)}
         />
+
+        {/* Search Bar and Sort */}
+        <div className="mb-6 flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          />
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as 'name' | 'count' | 'count-desc' | 'updated')}
+            aria-label="Sort items"
+            className="px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          >
+            <option value="count-desc">Count (high to low)</option>
+            <option value="count">Count (low to high)</option>
+            <option value="name">Name (A-Z)</option>
+            <option value="updated">Recently updated</option>
+          </select>
+        </div>
 
         {/* Items List */}
         {loading ? (
