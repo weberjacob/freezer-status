@@ -19,9 +19,9 @@ export function FreezerItemCard({
 }: FreezerItemCardProps) {
   return (
     <div className="group bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/10">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         {/* Item Name and Count */}
-        <div className="flex-1 min-w-0">
+        <div className="w-full sm:w-auto sm:flex-1 sm:min-w-0">
           <h3 className="text-lg font-medium text-white truncate">{item.name}</h3>
           <p className="text-sm text-gray-400 mt-1">
             Updated: {new Date(item.updated_at).toLocaleDateString()}
